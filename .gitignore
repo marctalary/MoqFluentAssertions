@@ -1,5 +1,7 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs/MoqFluentAssertions/v15/sqlite3
+﻿/.vs
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages

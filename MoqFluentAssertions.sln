@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoqFluentAssertions", "MoqFluentAssertions\MoqFluentAssertions.csproj", "{C1549B3B-08A7-4941-BECF-4784441C7A5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoqFluentAssertionsTests", "MoqFluentAssertionsTests\MoqFluentAssertionsTests.csproj", "{520BD565-7F21-4DFC-8312-A78DC82C3176}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3E1F51F8-38DD-434B-8090-CBC463DB4BF8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1549B3B-08A7-4941-BECF-4784441C7A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1549B3B-08A7-4941-BECF-4784441C7A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1549B3B-08A7-4941-BECF-4784441C7A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1549B3B-08A7-4941-BECF-4784441C7A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520BD565-7F21-4DFC-8312-A78DC82C3176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520BD565-7F21-4DFC-8312-A78DC82C3176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520BD565-7F21-4DFC-8312-A78DC82C3176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520BD565-7F21-4DFC-8312-A78DC82C3176}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE8ECD74-401D-40AA-ACCA-3F469E33A783}
+	EndGlobalSection
+EndGlobal
