@@ -17,10 +17,10 @@ booMock.Verify(b => b.ItWorked(Its.EquivalentTo<BarParam, FooParam>(fooParam)));
 
 This gives rich feedback on failure courtesy of the `FluentAssertions.ShouldBeEquivalentTo` method used to implement it.
 
-> Expected member Description to be 
-> "expected description" with a length of 20, but 
-> "actual description" has a length of 18.
-> Expected member ReferenceNumber to be 12345, but found 54321.
+> Expected member Description to be <br>
+> "expected description" with a length of 20, but <br>
+> "actual description" has a length of 18.<br>
+> Expected member ReferenceNumber to be 12345, but found 54321.<br>
 
 However using this method has major drawbacks.  It works by throwing an ```Exception``` with the test message and so fails the test whenever it is given an object that isn't equivalent, even when used in a ```Moq.Setup```.  
 
