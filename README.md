@@ -1,7 +1,7 @@
 # MoqFluentAssertions
 Combine [Moq](https://github.com/moq/moq) and [Fluent Assertions](https://github.com/fluentassertions/fluentassertions) for detailed testing feedback and comparison capabilities.
 
-##Its.EquivalentTo
+## Its.EquivalentTo
 
 Usage:
 
@@ -30,7 +30,7 @@ Therefore it is never advisable to use `Its.EquivalentTo` in setups and only use
 
 To get around this there is an ```AllowMultipleSetups``` parameter.
 
-###AllowMultipleSetups
+### AllowMultipleSetups
 
 Usage:
 
