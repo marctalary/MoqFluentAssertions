@@ -22,13 +22,13 @@ This gives rich feedback on failure courtesy of the `FluentAssertions.ShouldBeEq
 > "actual description" has a length of 18.<br>
 > Expected member ReferenceNumber to be 12345, but found 54321.<br>
 
-However using this method has major drawbacks.  It works by throwing an ```Exception``` with the test message and so fails the test whenever it is given an object that isn't equivalent, even when used in a ```Moq.Setup```.  
+However using this method has major drawbacks.  It works by throwing an `Exception` with the test message and so fails the test whenever it is given an object that isn't equivalent, even when used in a `Moq.Setup`.  
 
-By contrast the behavior of the ```Moq.It.Is()``` method takes an expression which returns true or false for each object given and then, if they are all false the ```Moq.Verify``` fails the test by throwing a ```MockExpcetion``` or when used in a ```Moq.Setup``` statement does not evoke the statements expression usually a ```Return```.
+By contrast the behavior of the `Moq.It.Is()` method takes an expression which returns true or false for each object given and then, if they are all false the `Moq.Verify` fails the test by throwing a `MockExpcetion` or when used in a `Moq.Setup` statement does not evoke the statements expression usually a `Return`.
 
-Therefore it is never advisable to use `Its.EquivalentTo` in setups and only useful in ```Moq.Verify``` when you only have a single verify for the method signature. 
+Therefore it is never advisable to use `Its.EquivalentTo` in setups and only useful in `Moq.Verify` when you only have a single verify for the method signature. 
 
-To get around this there is an ```AllowMultipleSetups``` parameter.
+To get around this there is an `AllowMultipleSetups` parameter.
 
 ### AllowMultipleSetups
 
@@ -44,15 +44,15 @@ Usage when equivalent check is between two different types:
 booMock.Verify(b => b.ItWorked(Its.EquivalentTo<BarParam, FooParam>(fooParam, true)));
 ```
 
-The  `AllowMultipleSetups` parameter defaults to ```false``` but when ```true``` does the ```FluentAssertions.ShouldBeEquivalentTo``` comparison but instead of failing the test on first non-equivalent object implements the same behavior as ```Moq.It.Is()```.   
+The  `AllowMultipleSetups` parameter defaults to `false` but when `true` does the `FluentAssertions.ShouldBeEquivalentTo` comparison but instead of failing the test on first non-equivalent object implements the same behavior as `Moq.It.Is()`.   
 
 You lose the rich feedback from `FluentAssertions` but gain the capability of using `Its.EquivalentTo` anywhere you would have used `Moq.It.Is()`.
 
-In the example below the test would have failed on the `foo.CallBoo(fooParam);` statement as all of the ```Moq.setup``` statements are checked when applicable and the second `Its.EquivilentTo` would have ended the test. 
+In the example below the test would have failed on the `foo.CallBoo(fooParam);` statement as all of the `Moq.setup` statements are checked when applicable and the second `Its.EquivilentTo` would have ended the test. 
 
 By passing `allowMultipleSetups: true` the call will only fail if there are no relevant `Moq.Setup` statements.
 
-```c#
+```csharp
 var fooParam = new FooParam
 {
     Description = "given value 1", ReferenceNumber = 12345
@@ -76,3 +76,18 @@ foo.CallBoo(fooParam);
 foo.CallBoo(fooParam2);
 ```
 
+## Other Implementations
+Using the [MatcherAttribute](http://www.nudoq.org/#!/Packages/Moq/Moq/MatcherAttribute) there are other implementations of the same functionality.
+The AllowMultipleSetups option is set to true and not provided as an override as it gives different behaviour than the standard ```It``` methods.
+
+Not sure which is better but I'm leaning towards It<T> extensions.
+
+### It&lt;T&gt;.IsEquivalentTo
+```csharp
+booMock.Verify(b => b.ItWorked(It<BarParam>.IsEquivalentTo(expectedFooParam)), Times.Once);
+```
+
+### _It.IsEquivalentTo
+```csharp
+booMock.Verify(b => b.ItWorked(_It.IsEquivalentTo(expectedBarParam)));
+```

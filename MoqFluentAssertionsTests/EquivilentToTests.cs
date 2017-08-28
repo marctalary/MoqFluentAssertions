@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Moq;
 using MoqFluentAssertions;
 using Xunit;
@@ -195,6 +196,7 @@ namespace MoqFluentAssertionsTests
         [Fact]
         public void Its_EquivalentTo_ThrowsException_WithMultipleSetups()
         {
+
             // Given
             var booMock = new Mock<IBar>();
             var foo = new Foo(booMock.Object);
@@ -216,6 +218,93 @@ namespace MoqFluentAssertionsTests
             // and When Then
             var testException = Assert.Throws<MockException>(() =>
                 booMock.Verify(b => b.ItWorked(Its.EquivalentTo(unExpectedBarParam, true)), Times.Once)
+            );
+
+            Assert.StartsWith("Expected invocation on the mock once, but was 0 times", testException.Message.Trim());
+        }
+
+        [Fact]
+        public void _It_IsEquivilentToMatcher_Works()
+        {
+            // Given
+            var booMock = new Mock<IBar>();
+            var foo = new Foo(booMock.Object);
+            var fooParam = new FooParam { Description = "test description", ReferenceNumber = 12345 };
+            var expectedBarParam = new BarParam { Description = fooParam.Description + "", ReferenceNumber = fooParam.ReferenceNumber };
+            foo.CallBoo(fooParam);
+
+            // When
+            booMock.Verify(b => b.ItWorked(_It.IsEquivalentTo(expectedBarParam)));
+
+            // Then 
+            // No Exception thrown
+        }
+
+        [Fact]
+        public void It_IsEquivilentToMatcher_VerifySuccess()
+        {
+            // Given
+            var booMock = new Mock<IBar>();
+            var foo = new Foo(booMock.Object);
+            var fooParam = new FooParam { Description = "test description", ReferenceNumber = 12345 };
+            var expectedBarParam = new BarParam { Description = fooParam.Description + "", ReferenceNumber = fooParam.ReferenceNumber };
+            foo.CallBoo(fooParam);
+
+            // When
+            booMock.Verify(b => b.ItWorked(It<BarParam>.IsEquivalentTo(expectedBarParam)));
+
+            // Then 
+            // No Exception thrown
+        }
+
+        [Fact]
+        public void It_IsEquivilentToMatcher_VerifySuccess_WithDiffereningTypes()
+        {
+            // Given
+            var booMock = new Mock<IBar>();
+            var foo = new Foo(booMock.Object);
+            var fooParam = new FooParam { Description = "test description", ReferenceNumber = 12345 };
+            var expectedFooParam = new FooParam { Description = fooParam.Description + "", ReferenceNumber = fooParam.ReferenceNumber };
+            foo.CallBoo(fooParam);
+
+            // When
+            booMock.Verify(b => b.ItWorked(It<BarParam>.IsEquivalentTo(expectedFooParam)));
+
+            // Then 
+            // No Exception thrown
+        }
+
+        [Fact]
+        public void It_IsEquivilentToMatcher_VerifyFail()
+        {
+            // Given
+            var booMock = new Mock<IBar>();
+            var foo = new Foo(booMock.Object);
+            var fooParam = new FooParam { Description = "test description", ReferenceNumber = 12345 };
+            var expectedBarParam = new BarParam { Description = "something else", ReferenceNumber = 54321 };
+            foo.CallBoo(fooParam);
+
+            // When, Then
+            var testException = Assert.Throws<MockException>(() =>
+                booMock.Verify(b => b.ItWorked(It<BarParam>.IsEquivalentTo(expectedBarParam)), Times.Once)
+            );
+
+            Assert.StartsWith("Expected invocation on the mock once, but was 0 times", testException.Message.Trim());
+        }
+
+        [Fact]
+        public void It_IsEquivilentToMatcher_VerifyFail_WithDiffereningTypes()
+        {
+            // Given
+            var booMock = new Mock<IBar>();
+            var foo = new Foo(booMock.Object);
+            var fooParam = new FooParam { Description = "test description", ReferenceNumber = 12345 };
+            var expectedFooParam = new FooParam { Description = "something else", ReferenceNumber = 54321 };
+            foo.CallBoo(fooParam);
+
+            // When, Then
+            var testException = Assert.Throws<MockException>(() =>
+                    booMock.Verify(b => b.ItWorked(It<BarParam>.IsEquivalentTo(expectedFooParam)), Times.Once)
             );
 
             Assert.StartsWith("Expected invocation on the mock once, but was 0 times", testException.Message.Trim());
