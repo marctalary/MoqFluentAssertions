@@ -78,9 +78,9 @@ foo.CallBoo(fooParam2);
 
 ## Other Implementations
 Using the [MatcherAttribute](http://www.nudoq.org/#!/Packages/Moq/Moq/MatcherAttribute) there are other implementations of the same functionality.
-The AllowMultipleSetups option is set to true and not provided as an override as it gives different behaviour than the standard ```It``` methods.
+The AllowMultipleSetups option is set to true and not provided as an override as it gives different behaviour than the standard `It` methods.
 
-Not sure which is better but I'm leaning towards It<T> extensions.
+Not sure which is better but I'm leaning towards `It<T>` extensions.
 
 ### It&lt;T&gt;.IsEquivalentTo
 ```csharp
